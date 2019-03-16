@@ -413,6 +413,13 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 {
     [self cleanup];
 }
+- (void)finishedPrepareForDisplay
+{
+    /*
+     Fixed a bug by turn back from a pushed UIViewController
+     */
+    [self cleanup];
+}
 
 - (void)layoutViews
 {
@@ -484,6 +491,7 @@ static char shyNavBarManagerKey;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self tly_swizzleInstanceMethod:@selector(viewWillAppear:) withReplacement:@selector(tly_swizzledViewWillAppear:)];
+        [self tly_swizzleInstanceMethod:@selector(viewDidAppear:) withReplacement:@selector(tly_swizzledViewDidAppear:)];
         [self tly_swizzleInstanceMethod:@selector(viewWillLayoutSubviews) withReplacement:@selector(tly_swizzledViewDidLayoutSubviews)];
         [self tly_swizzleInstanceMethod:@selector(viewWillDisappear:) withReplacement:@selector(tly_swizzledViewWillDisappear:)];
     });
@@ -495,6 +503,11 @@ static char shyNavBarManagerKey;
 {
     [[self _internalShyNavBarManager] prepareForDisplay];
     [self tly_swizzledViewWillAppear:animated];
+}
+- (void)tly_swizzledViewDidAppear:(BOOL)animated
+{
+    [[self _internalShyNavBarManager] finishedPrepareForDisplay];
+    [self tly_swizzledViewDidAppear:animated];
 }
 
 - (void)tly_swizzledViewDidLayoutSubviews
