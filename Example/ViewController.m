@@ -67,10 +67,16 @@
         {
             switch ([indexPath row]) {
                 case 0:
-                    [[cell textLabel] setText:@"Present UIViewController"];
+                    [[cell textLabel] setText:@"Present FormSheet"];
                     break;
                 case 1:
-                    [[cell textLabel] setText:@"Push UIViewController"];
+                    [[cell textLabel] setText:@"Present PageSheet"];
+                    break;
+                case 2:
+                    [[cell textLabel] setText:@"Present FullScreen"];
+                    break;
+                case 3:
+                    [[cell textLabel] setText:@"Push"];
                     break;
                 default:
                     break;
@@ -91,9 +97,15 @@
         {
             switch ([indexPath row]) {
                 case 0:
-                    [self goToFirstDemo];
+                    [self goToFirstDemo:UIModalPresentationFormSheet];
                     break;
                 case 1:
+                    [self goToFirstDemo:UIModalPresentationPageSheet];
+                    break;
+                case 2:
+                    [self goToFirstDemo:UIModalPresentationFullScreen];
+                    break;
+                case 3:
                     [self goToSecondDemo];
                     break;
                 default:
@@ -140,9 +152,10 @@
 }
 
 #pragma FirstDemo
-- (void)goToFirstDemo
+- (void)goToFirstDemo:(UIModalPresentationStyle)style
 {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[FirstDemoViewController alloc] init]];
+    [navigationController setModalPresentationStyle:style];
     [[self navigationController] presentViewController:navigationController animated:true completion:nil];
 }
 - (void)goToSecondDemo

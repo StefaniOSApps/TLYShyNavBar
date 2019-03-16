@@ -197,7 +197,7 @@
     return [self snap:contract completion:nil];
 }
 
-- (CGFloat)snap:(BOOL)contract completion:(void (^)())completion
+- (CGFloat)snap:(BOOL)contract completion:(void (^)(void))completion
 {
     /* "The Facebook" UX dictates that:
      *
