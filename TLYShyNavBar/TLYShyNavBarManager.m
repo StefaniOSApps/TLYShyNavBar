@@ -497,6 +497,7 @@ static char shyNavBarManagerKey;
         [self tly_swizzleInstanceMethod:@selector(viewDidAppear:) withReplacement:@selector(tly_swizzledViewDidAppear:)];
         [self tly_swizzleInstanceMethod:@selector(viewWillLayoutSubviews) withReplacement:@selector(tly_swizzledViewDidLayoutSubviews)];
         [self tly_swizzleInstanceMethod:@selector(viewWillDisappear:) withReplacement:@selector(tly_swizzledViewWillDisappear:)];
+        [self tly_swizzleInstanceMethod:@selector(viewDidDisappear:) withReplacement:@selector(tly_swizzledViewDidDisappear:)];
     });
 }
 
@@ -509,7 +510,7 @@ static char shyNavBarManagerKey;
 }
 - (void)tly_swizzledViewDidAppear:(BOOL)animated
 {
-    [[self _internalShyNavBarManager] finishedPrepareForDisplay];
+//    [[self _internalShyNavBarManager] finishedPrepareForDisplay];
     [self tly_swizzledViewDidAppear:animated];
 }
 
@@ -524,6 +525,12 @@ static char shyNavBarManagerKey;
     [[self _internalShyNavBarManager] cleanup];
     [self tly_swizzledViewWillDisappear:animated];
 }
+- (void)tly_swizzledViewDidDisappear:(BOOL)animated
+{
+    [[self _internalShyNavBarManager] cleanup];
+    [self tly_swizzledViewDidDisappear:animated];
+}
+
 
 #pragma mark - Public methods
 
