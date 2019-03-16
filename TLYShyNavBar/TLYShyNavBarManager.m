@@ -412,6 +412,9 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 - (void)prepareForDisplay
 {
     [self cleanup];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self cleanup];
+    });
 }
 - (void)finishedPrepareForDisplay
 {

@@ -50,10 +50,7 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 
 - (CGFloat)maxYRelativeToView:(UIView *)superview
 {
-    /*
-     This fixed a bug at push a UIViewController
-     */
-    return [self _statusBarHeight] + 1;
+    return [self _statusBarHeight];
 }
 
 - (CGFloat)calculateTotalHeightRecursively

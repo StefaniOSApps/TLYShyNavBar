@@ -100,7 +100,7 @@
     return [self.arrRows count];
 }
 
-#pragma dismiss UIViewController
+#pragma Dismiss UIViewController
 - (void)dismissViewController
 {
     [[self navigationController] dismissViewControllerAnimated:true completion:nil];
