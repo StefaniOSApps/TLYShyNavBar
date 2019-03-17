@@ -264,12 +264,25 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 
         // 2 - Ignore any scrollOffset beyond the bounds
         CGFloat start = -self.scrollView.contentInset.top;
+        
+        if (@available(iOS 11.0, *))
+        {
+            if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways)
+            {
+                start -= self.scrollView.safeAreaInsets.top + self.scrollView.safeAreaInsets.bottom;
+            }
+        }
+        
         if (self.previousYOffset < start)
         {
             deltaY = MIN(0, deltaY - (self.previousYOffset - start));
         }
 
         /* rounding to resolve a dumb issue with the contentOffset value */
+        
+        //BOOL isContentInsetAdjustmentAlways = false;
+        
+        
         CGFloat end = floorf(self.scrollView.contentSize.height - CGRectGetHeight(self.scrollView.bounds) + self.scrollView.contentInset.bottom - 0.5f);
         if (self.previousYOffset > end && deltaY > 0)
         {
