@@ -12,13 +12,10 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 {
     if ([UIApplication sharedApplication].statusBarHidden) return 0.f;
     
-    CGSize  statusBarSize   = [UIApplication sharedApplication].statusBarFrame.size;
-    CGFloat statusBarHeight = statusBarSize.height;
-    
     UIView *view = viewController.view;
-    CGRect frame = [view.superview convertRect:view.frame toView:UIApplication.sharedApplication.delegate.window];
+    CGRect frame = [view.superview convertRect:view.frame toView:view.window];
     
-    return MAX(0, statusBarHeight - frame.origin.y);
+    return (frame.origin.y > 0) ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height;
 }
 
 
@@ -26,8 +23,7 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 
 - (CGFloat)_statusBarHeight
 {
-    CGFloat statusBarHeight = AACStatusBarHeight(self.viewController);
-    return statusBarHeight;
+    return AACStatusBarHeight(self.viewController);
 }
 
 - (CGFloat)maxYRelativeToView:(UIView *)superview

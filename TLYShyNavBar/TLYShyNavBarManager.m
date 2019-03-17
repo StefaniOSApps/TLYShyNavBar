@@ -269,7 +269,7 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         {
             if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways)
             {
-                start -= self.scrollView.safeAreaInsets.top ;
+                start -= self.scrollView.safeAreaInsets.top;
             }
         }
         

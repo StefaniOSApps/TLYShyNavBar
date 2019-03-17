@@ -44,7 +44,7 @@
 }
 
 
-#pragma Dismiss UICollectionView
+#pragma UICollectionView
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"cell";
