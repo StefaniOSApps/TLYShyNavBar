@@ -1,21 +1,21 @@
 //
-//  SecondDemoViewController.m
+//  CollectionViewController.m
 //  Example
 //
 //  Created by Stefan Nebel on 17.03.19.
 //
 
 #import "Declaration.h"
-#import "SecondDemoViewController.h"
+#import "CollectionViewController.h"
 
-@interface SecondDemoViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property UICollectionView *collectionView;
 
 @end
 
 
 
-@implementation SecondDemoViewController
+@implementation CollectionViewController
 
 - (void)viewDidLoad
 {
@@ -40,7 +40,8 @@
     if (@available(iOS 11.0, *)) [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
 
     [[self view] addSubview:self.collectionView];
-    [[self shyNavBarManager] setScrollView:self.collectionView];
+    if (self.navigationController != nil) [[self shyNavBarManager] setScrollView:self.collectionView];
+    
 }
 
 
@@ -49,8 +50,24 @@
 {
     static NSString *cellIdentifier = @"cell";
     UICollectionViewCell *cell  = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    for (UIView * v in [cell contentView].subviews) [v removeFromSuperview];
     
     [cell setBackgroundColor:[UIColor darkGrayColor]];
+    
+    UILabel *label_L = [UILabel new];
+    [label_L setTextAlignment:NSTextAlignmentCenter];
+    [label_L setTextColor:[UIColor whiteColor]];
+    [label_L setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightBold]];
+    [label_L setAdjustsFontSizeToFitWidth:YES];
+    [label_L setText:[NSString stringWithFormat:@"%03ld", [indexPath row]]];
+    [label_L setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [[cell contentView] addSubview:label_L];
+    
+    [NSLayoutConstraint activateConstraints:@[[[label_L topAnchor]      constraintEqualToAnchor:[[cell contentView] topAnchor]],
+                                              [[label_L bottomAnchor]   constraintEqualToAnchor:[[cell contentView] bottomAnchor]],
+                                              [[label_L leftAnchor]     constraintEqualToAnchor:[[cell contentView] leftAnchor]],
+                                              [[label_L rightAnchor]    constraintEqualToAnchor:[[cell contentView] rightAnchor]]
+                                              ]];
     
     return cell;
 }

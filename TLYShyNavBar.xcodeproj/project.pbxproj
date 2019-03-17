@@ -16,8 +16,9 @@
 		36CE6FD2223C7E8F005FDB76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CE6FD1223C7E8F005FDB76 /* main.m */; };
 		36CE6FF2223C846F005FDB76 /* TLYShyNavBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A21BFFA41BFDCC8800F9FB54 /* TLYShyNavBar.framework */; };
 		36CE6FF3223C846F005FDB76 /* TLYShyNavBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A21BFFA41BFDCC8800F9FB54 /* TLYShyNavBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		36CE6FF9223C8BA9005FDB76 /* FirstDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CE6FF8223C8BA9005FDB76 /* FirstDemoViewController.m */; };
-		36EC7DA1223DC8A600AAD19F /* SecondDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EC7DA0223DC8A600AAD19F /* SecondDemoViewController.m */; };
+		36CE6FF9223C8BA9005FDB76 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CE6FF8223C8BA9005FDB76 /* TableViewController.m */; };
+		36CEFD04223E71D200F8D47A /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36CEFD03223E71D200F8D47A /* PageViewController.m */; };
+		36EC7DA1223DC8A600AAD19F /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36EC7DA0223DC8A600AAD19F /* CollectionViewController.m */; };
 		A21B00001BFDD41100F9FB54 /* TLYShyScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A21BFFF81BFDD41100F9FB54 /* TLYShyScrollViewController.m */; };
 		A21B00011BFDD41100F9FB54 /* TLYShyStatusBarController.h in Headers */ = {isa = PBXBuildFile; fileRef = A21BFFF91BFDD41100F9FB54 /* TLYShyStatusBarController.h */; };
 		A21B00021BFDD41100F9FB54 /* TLYShyStatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A21BFFFA1BFDD41100F9FB54 /* TLYShyStatusBarController.m */; };
@@ -76,11 +77,13 @@
 		36CE6FCE223C7E8F005FDB76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36CE6FD0223C7E8F005FDB76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36CE6FD1223C7E8F005FDB76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		36CE6FF7223C8BA9005FDB76 /* FirstDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstDemoViewController.h; sourceTree = "<group>"; };
-		36CE6FF8223C8BA9005FDB76 /* FirstDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstDemoViewController.m; sourceTree = "<group>"; };
+		36CE6FF7223C8BA9005FDB76 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		36CE6FF8223C8BA9005FDB76 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		36CE6FFB223C8D1B005FDB76 /* Declaration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Declaration.h; sourceTree = "<group>"; };
-		36EC7D9F223DC8A600AAD19F /* SecondDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondDemoViewController.h; sourceTree = "<group>"; };
-		36EC7DA0223DC8A600AAD19F /* SecondDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondDemoViewController.m; sourceTree = "<group>"; };
+		36CEFD02223E71D200F8D47A /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		36CEFD03223E71D200F8D47A /* PageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		36EC7D9F223DC8A600AAD19F /* CollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		36EC7DA0223DC8A600AAD19F /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		A21B00051BFDD41900F9FB54 /* TLYShyNavBarFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarFade.h; sourceTree = "<group>"; };
 		A21B00061BFDD41900F9FB54 /* TLYShyNavBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarManager.h; sourceTree = "<group>"; };
 		A21B00071BFDD41900F9FB54 /* TLYShyNavBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyNavBarManager.m; sourceTree = "<group>"; };
@@ -146,10 +149,12 @@
 		36CE6FFA223C8BB3005FDB76 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				36CE6FF7223C8BA9005FDB76 /* FirstDemoViewController.h */,
-				36CE6FF8223C8BA9005FDB76 /* FirstDemoViewController.m */,
-				36EC7D9F223DC8A600AAD19F /* SecondDemoViewController.h */,
-				36EC7DA0223DC8A600AAD19F /* SecondDemoViewController.m */,
+				36CE6FF7223C8BA9005FDB76 /* TableViewController.h */,
+				36CE6FF8223C8BA9005FDB76 /* TableViewController.m */,
+				36EC7D9F223DC8A600AAD19F /* CollectionViewController.h */,
+				36EC7DA0223DC8A600AAD19F /* CollectionViewController.m */,
+				36CEFD02223E71D200F8D47A /* PageViewController.h */,
+				36CEFD03223E71D200F8D47A /* PageViewController.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -349,12 +354,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36CE6FF9223C8BA9005FDB76 /* FirstDemoViewController.m in Sources */,
-				36EC7DA1223DC8A600AAD19F /* SecondDemoViewController.m in Sources */,
+				36CE6FF9223C8BA9005FDB76 /* TableViewController.m in Sources */,
+				36EC7DA1223DC8A600AAD19F /* CollectionViewController.m in Sources */,
 				36CE6FC4223C7E8B005FDB76 /* ViewController.m in Sources */,
 				36CE6FCA223C7E8B005FDB76 /* Example.xcdatamodeld in Sources */,
 				36CE6FD2223C7E8F005FDB76 /* main.m in Sources */,
 				36CE6FC1223C7E8B005FDB76 /* AppDelegate.m in Sources */,
+				36CEFD04223E71D200F8D47A /* PageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

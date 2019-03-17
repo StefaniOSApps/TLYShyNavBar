@@ -7,8 +7,9 @@
 
 #import "Declaration.h"
 #import "ViewController.h"
-#import "Demo/FirstDemoViewController.h"
-#import "Demo/SecondDemoViewController.h"
+#import "Demo/TableViewController.h"
+#import "Demo/CollectionViewController.h"
+#import "Demo/PageViewController.h"
 
 
 
@@ -27,7 +28,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.arrRows = @[@(4), @(4), @(10), @(20)];
+        self.arrRows = @[@(4), @(4), @(4), @(10), @(20)];
     }
     return self;
 }
@@ -66,26 +67,8 @@
     
     switch ([indexPath section]) {
         case 0:
-        {
-            switch ([indexPath row]) {
-                case 0:
-                    [[cell textLabel] setText:@"Present FormSheet"];
-                    break;
-                case 1:
-                    [[cell textLabel] setText:@"Present PageSheet"];
-                    break;
-                case 2:
-                    [[cell textLabel] setText:@"Present FullScreen"];
-                    break;
-                case 3:
-                    [[cell textLabel] setText:@"Push"];
-                    break;
-                default:
-                    break;
-            }
-        }
-            break;
         case 1:
+        case 2:
         {
             switch ([indexPath row]) {
                 case 0:
@@ -119,16 +102,16 @@
         {
             switch ([indexPath row]) {
                 case 0:
-                    [self goToFirstDemo:UIModalPresentationFormSheet];
+                    [self runTableViewController:UIModalPresentationFormSheet];
                     break;
                 case 1:
-                    [self goToFirstDemo:UIModalPresentationPageSheet];
+                    [self runTableViewController:UIModalPresentationPageSheet];
                     break;
                 case 2:
-                    [self goToFirstDemo:UIModalPresentationFullScreen];
+                    [self runTableViewController:UIModalPresentationFullScreen];
                     break;
                 case 3:
-                    [self goToFirstDemo:UIModalPresentationNone];
+                    [self runTableViewController:UIModalPresentationNone];
                     break;
                 default:
                     break;
@@ -139,16 +122,36 @@
         {
             switch ([indexPath row]) {
                 case 0:
-                    [self goToSecondDemo:UIModalPresentationFormSheet];
+                    [self runCollectionViewController:UIModalPresentationFormSheet];
                     break;
                 case 1:
-                    [self goToSecondDemo:UIModalPresentationPageSheet];
+                    [self runCollectionViewController:UIModalPresentationPageSheet];
                     break;
                 case 2:
-                    [self goToSecondDemo:UIModalPresentationFullScreen];
+                    [self runCollectionViewController:UIModalPresentationFullScreen];
                     break;
                 case 3:
-                    [self goToSecondDemo:UIModalPresentationNone];
+                    [self runCollectionViewController:UIModalPresentationNone];
+                    break;
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+        {
+            switch ([indexPath row]) {
+                case 0:
+                    [self runPageViewController:UIModalPresentationFormSheet];
+                    break;
+                case 1:
+                    [self runPageViewController:UIModalPresentationPageSheet];
+                    break;
+                case 2:
+                    [self runPageViewController:UIModalPresentationFullScreen];
+                    break;
+                case 3:
+                    [self runPageViewController:UIModalPresentationNone];
                     break;
                 default:
                     break;
@@ -189,6 +192,9 @@
          case 1:
              [label_L setText:@"UICollectionView"];
              break;
+         case 2:
+             [label_L setText:@"UIPageViewController"];
+             break;
          default:
              break;
      }
@@ -220,9 +226,9 @@
 }
 
 #pragma FirstDemo
-- (void)goToFirstDemo:(UIModalPresentationStyle)style
+- (void)runTableViewController:(UIModalPresentationStyle)style
 {
-    FirstDemoViewController *vc = [[FirstDemoViewController alloc] init];
+    TableViewController *vc = [[TableViewController alloc] init];
     
     if (style != UIModalPresentationNone)
     {
@@ -232,9 +238,21 @@
     }
     else [[self navigationController] pushViewController:vc animated:true];
 }
-- (void)goToSecondDemo:(UIModalPresentationStyle)style
+- (void)runCollectionViewController:(UIModalPresentationStyle)style
 {
-    SecondDemoViewController *vc = [[SecondDemoViewController alloc] init];
+    CollectionViewController *vc = [[CollectionViewController alloc] init];
+    
+    if (style != UIModalPresentationNone)
+    {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+        [navigationController setModalPresentationStyle:style];
+        [[self navigationController] presentViewController:navigationController animated:true completion:nil];
+    }
+    else [[self navigationController] pushViewController:vc animated:true];
+}
+- (void)runPageViewController:(UIModalPresentationStyle)style
+{
+    PageViewController *vc = [[PageViewController alloc] init];
     
     if (style != UIModalPresentationNone)
     {

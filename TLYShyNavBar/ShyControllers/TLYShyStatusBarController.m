@@ -23,7 +23,12 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 
 - (CGFloat)_statusBarHeight
 {
-    return AACStatusBarHeight(self.viewController);
+    CGFloat statusBarHeight = AACStatusBarHeight(self.viewController);
+    if (statusBarHeight > 30)
+    {
+//        statusBarHeight -= 20;
+    }
+    return statusBarHeight;
 }
 
 - (CGFloat)maxYRelativeToView:(UIView *)superview

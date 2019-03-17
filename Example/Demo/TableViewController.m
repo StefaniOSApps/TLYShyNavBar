@@ -1,14 +1,14 @@
 //
-//  FirstDemoViewController.m
+//  TableViewController.m
 //  Example
 //
 //  Created by Stefan Nebel on 16.03.19.
 //
 
 #import "Declaration.h"
-#import "FirstDemoViewController.h"
+#import "TableViewController.h"
 
-@interface FirstDemoViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TableViewController () <UITableViewDelegate, UITableViewDataSource>
 @property UITableView *tableView;
 @property NSArray *arrRows;
 
@@ -16,7 +16,7 @@
 
 
 
-@implementation FirstDemoViewController
+@implementation TableViewController
 
 - (instancetype)init
 {
@@ -47,7 +47,7 @@
     if(@available(iOS 11.0, *)) [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     
     [[self view] addSubview:self.tableView];
-    [[self shyNavBarManager] setScrollView:self.tableView];
+    if (self.navigationController != nil) [[self shyNavBarManager] setScrollView:self.tableView];
 }
 
 #pragma UITableView
