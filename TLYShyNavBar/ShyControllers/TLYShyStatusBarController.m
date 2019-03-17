@@ -11,7 +11,7 @@
 static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 {
     if ([UIApplication sharedApplication].statusBarHidden) return 0.f;
-    if (viewController.presentingVie/Users/stefannebel/Desktop/Bildschirmfoto 2019-02-02 um 01.56.31.pngwController.presentedViewController == viewController) return 0;
+    if (viewController.presentingViewController.presentedViewController == viewController) return 0;
     
     UIView *view = viewController.view;
     CGFloat diff        = [view.superview convertPoint:CGPointZero toView:view.window].y;
