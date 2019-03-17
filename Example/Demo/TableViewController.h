@@ -9,5 +9,6 @@
 
 
 @interface TableViewController : UIViewController
+- (instancetype)initWithPageController:(UIPageViewController *)page;
 @end
 

@@ -8,4 +8,5 @@
 @import UIKit;
 
 @interface CollectionViewController : UIViewController
+- (instancetype)initWithPageController:(UIPageViewController *)page;
 @end

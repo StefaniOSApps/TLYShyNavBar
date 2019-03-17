@@ -9,7 +9,9 @@
 #import "CollectionViewController.h"
 
 @interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+
 @property UICollectionView *collectionView;
+@property UIPageViewController *pageController;
 
 @end
 
@@ -17,6 +19,14 @@
 
 @implementation CollectionViewController
 
+- (instancetype)initWithPageController:(UIPageViewController *)page
+{
+    self = [super init];
+    if(self) {
+        self.pageController = page;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,12 +50,19 @@
     if (@available(iOS 11.0, *)) [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
 
     [[self view] addSubview:self.collectionView];
+    if (self.navigationController)
+    {
+        self.pageController ? [[self.pageController shyNavBarManager] setScrollView:self.collectionView] : [[self shyNavBarManager] setScrollView:self.collectionView];
+    }
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if (self.navigationController) [[self shyNavBarManager] setScrollView:self.collectionView];
+    if (self.navigationController)
+    {
+        self.pageController ? [[self.pageController shyNavBarManager] setScrollView:self.collectionView] : [[self shyNavBarManager] setScrollView:self.collectionView];
+    }
 }
 
 
@@ -63,7 +80,7 @@
     [label_L setTextColor:[UIColor whiteColor]];
     [label_L setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightBold]];
     [label_L setAdjustsFontSizeToFitWidth:YES];
-    [label_L setText:[NSString stringWithFormat:@"%03ld", [indexPath row]]];
+    [label_L setText:[NSString stringWithFormat:@"%03ld", (long)[indexPath row]]];
     [label_L setTranslatesAutoresizingMaskIntoConstraints:NO];
     [[cell contentView] addSubview:label_L];
     

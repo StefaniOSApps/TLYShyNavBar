@@ -25,7 +25,9 @@
                                                                                                               action:@selector(dismissViewController)] : nil];
     
  
-    self.arrVC = @[[[TableViewController alloc] init], [[CollectionViewController alloc] init]];
+    self.arrVC = @[[[TableViewController alloc] initWithPageController:self],
+                   [[CollectionViewController alloc] initWithPageController:self]
+                   ];
     [self setDelegate:self];
     [self setDataSource:self];
     [self setViewControllers:@[self.arrVC.firstObject] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];

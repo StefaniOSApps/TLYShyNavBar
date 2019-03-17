@@ -61,7 +61,7 @@
     
     
     [[cell textLabel] setTextColor:[UIColor whiteColor]];
-    [[cell textLabel] setText:[NSString stringWithFormat:@"S: %2ld -- R: %02ld", [indexPath section], [indexPath row] ]];
+    [[cell textLabel] setText:[NSString stringWithFormat:@"S: %2ld -- R: %02ld", (long)[indexPath section], (long)[indexPath row] ]];
     [[cell textLabel] setBackgroundColor:[UIColor clearColor]];
     [[cell contentView] setBackgroundColor:[UIColor darkGrayColor]];
     
@@ -228,7 +228,7 @@
 #pragma FirstDemo
 - (void)runTableViewController:(UIModalPresentationStyle)style
 {
-    TableViewController *vc = [[TableViewController alloc] init];
+    TableViewController *vc = [[TableViewController alloc] initWithPageController:nil];
     
     if (style != UIModalPresentationNone)
     {
@@ -241,7 +241,7 @@
 }
 - (void)runCollectionViewController:(UIModalPresentationStyle)style
 {
-    CollectionViewController *vc = [[CollectionViewController alloc] init];
+    CollectionViewController *vc = [[CollectionViewController alloc] initWithPageController:nil];
     
     if (style != UIModalPresentationNone)
     {

@@ -192,6 +192,7 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         [self.scrollView tly_setInsets:insets];
     }
     
+    
     self.previousYOffset = NAN;
 
     [_scrollView addObserver:self forKeyPath:@"contentSize" options:0 context:kTLYShyNavBarManagerKVOContext];
@@ -612,7 +613,7 @@ static char shyNavBarManagerKey;
 }
 - (void)tly_swizzledViewDidAppear:(BOOL)animated
 {
-//    [[self _internalShyNavBarManager] finishedPrepareForDisplay];
+    [[self _internalShyNavBarManager] finishedPrepareForDisplay];
     [self tly_swizzledViewDidAppear:animated];
 }
 

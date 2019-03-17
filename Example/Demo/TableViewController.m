@@ -9,8 +9,10 @@
 #import "TableViewController.h"
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource>
+
 @property UITableView *tableView;
 @property NSArray *arrRows;
+@property UIPageViewController *pageController;
 
 @end
 
@@ -18,10 +20,11 @@
 
 @implementation TableViewController
 
-- (instancetype)init
+- (instancetype)initWithPageController:(UIPageViewController *)page
 {
     self = [super init];
-    if (self) {
+    if(self) {
+        self.pageController = page;
         self.arrRows = @[@(5), @(10), @(20)];
     }
     return self;
@@ -52,7 +55,10 @@
 {
     [super viewDidAppear:animated];
     
-    if (self.navigationController) [[self shyNavBarManager] setScrollView:self.tableView];
+    if (self.navigationController)
+    {
+        self.pageController ? [[self.pageController shyNavBarManager] setScrollView:self.tableView] : [[self shyNavBarManager] setScrollView:self.tableView];
+    }
 }
 
 #pragma UITableView
@@ -64,7 +70,7 @@
     
     
     [[cell textLabel] setTextColor:[UIColor whiteColor]];
-    [[cell textLabel] setText:[NSString stringWithFormat:@"S: %2ld -- R: %02ld", [indexPath section], [indexPath row] ]];
+    [[cell textLabel] setText:[NSString stringWithFormat:@"S: %2ld -- R: %02ld", (long)[indexPath section], (long)[indexPath row] ]];
     [[cell textLabel] setBackgroundColor:[UIColor clearColor]];
     [[cell contentView] setBackgroundColor:[UIColor darkGrayColor]];
     
