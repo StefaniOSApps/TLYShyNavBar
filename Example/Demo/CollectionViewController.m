@@ -40,8 +40,12 @@
     if (@available(iOS 11.0, *)) [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
 
     [[self view] addSubview:self.collectionView];
-    if (self.navigationController != nil) [[self shyNavBarManager] setScrollView:self.collectionView];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
+    if (self.navigationController) [[self shyNavBarManager] setScrollView:self.collectionView];
 }
 
 
@@ -92,6 +96,6 @@
 #pragma Dismiss UIViewController
 - (void)dismissViewController
 {
-    [[self navigationController] dismissViewControllerAnimated:true completion:nil];
+    [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 }
 @end

@@ -11,11 +11,19 @@
 static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 {
     if ([UIApplication sharedApplication].statusBarHidden) return 0.f;
+    if (viewController.presentingViewController.presentedViewController == viewController) return 0;
     
     UIView *view = viewController.view;
-    CGRect frame = [view.superview convertRect:view.frame toView:view.window];
-    
-    return (frame.origin.y > 0) ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat diff = [view.superview convertPoint:CGPointZero toView:view.window].y;
+    /*
+    NSLog(@"%.2f -- %.2f -- %.2f -- %.2f",
+          diff,
+          [view.superview convertRect:view.frame toView:view.window].origin.y,
+          view.frame.origin.y,
+          [view.superview convertRect:view.frame toView:UIApplication.sharedApplication.delegate.window].origin.y
+          );
+     */
+    return diff > 0 ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height;
 }
 
 
@@ -28,6 +36,7 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
     {
 //        statusBarHeight -= 20;
     }
+    
     return statusBarHeight;
 }
 

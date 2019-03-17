@@ -234,9 +234,10 @@
     {
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
         [navigationController setModalPresentationStyle:style];
-        [[self navigationController] presentViewController:navigationController animated:true completion:nil];
+        [[navigationController navigationBar] setTranslucent:NO];
+        [[self navigationController] presentViewController:navigationController animated:YES completion:nil];
     }
-    else [[self navigationController] pushViewController:vc animated:true];
+    else [[self navigationController] pushViewController:vc animated:YES];
 }
 - (void)runCollectionViewController:(UIModalPresentationStyle)style
 {
@@ -246,9 +247,10 @@
     {
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
         [navigationController setModalPresentationStyle:style];
-        [[self navigationController] presentViewController:navigationController animated:true completion:nil];
+        [[navigationController navigationBar] setTranslucent:NO];
+        [[self navigationController] presentViewController:navigationController animated:YES completion:nil];
     }
-    else [[self navigationController] pushViewController:vc animated:true];
+    else [[self navigationController] pushViewController:vc animated:YES];
 }
 - (void)runPageViewController:(UIModalPresentationStyle)style
 {
@@ -258,8 +260,9 @@
     {
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
         [navigationController setModalPresentationStyle:style];
-        [[self navigationController] presentViewController:navigationController animated:true completion:nil];
+        [[navigationController navigationBar] setTranslucent:NO];
+        [[self navigationController] presentViewController:navigationController animated:YES completion:nil];
     }
-    else [[self navigationController] pushViewController:vc animated:true];
+    else [[self navigationController] pushViewController:vc animated:YES];
 }
 @end

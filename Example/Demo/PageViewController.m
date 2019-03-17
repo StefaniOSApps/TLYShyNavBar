@@ -52,6 +52,6 @@
 #pragma Dismiss UIViewController
 - (void)dismissViewController
 {
-    [[self navigationController] dismissViewControllerAnimated:true completion:nil];
+    [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 }
 @end

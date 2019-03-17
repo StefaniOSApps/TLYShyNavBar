@@ -22,11 +22,14 @@
 
 - (CGFloat)calculateTotalHeightRecursively
 {
+ /*
     float overlap = [self.parent maxYRelativeToView:self.view];
     if ([self.parent isMemberOfClass:[TLYShyStatusBarController class]] && overlap - self.view.frame.origin.y > 0) {
         overlap += overlap - self.view.frame.origin.y;
     }
     return CGRectGetHeight(self.view.bounds) - overlap + [self.parent calculateTotalHeightRecursively];
+  */
+    return (self.expanded ? CGRectGetHeight(self.view.bounds) : 0) + [self.parent calculateTotalHeightRecursively];
 }
 
 @end
@@ -39,9 +42,9 @@
 
 @property (nonatomic, assign) CGPoint contractedCenterValue;
 
-@property (nonatomic, assign) BOOL contracted;
-@property (nonatomic, assign) BOOL expanded;
-
+//@property (nonatomic, assign) BOOL contracted;
+//@property (nonatomic, assign) BOOL expanded;
+//
 @end
 
 @implementation TLYShyViewController
@@ -80,6 +83,12 @@
 }
 
 #pragma mark - Private methods
+
+- (void)_onProgressUpdate:(CGFloat)progress
+{
+    [self _onAlphaUpdate:progress];
+    [self _onScaleUpdate:progress];
+}
 
 - (void)_onAlphaUpdate:(CGFloat)alpha
 {
@@ -125,6 +134,32 @@
     }
 }
 
+- (void)_onScaleUpdate:(CGFloat)scale
+{
+    if (self.sticky)
+    {
+        [self _updateSubviewsScale:1.f];
+        return;
+    }
+    
+    [self _updateSubviewsScale:self.scale ? scale : 1.f];
+}
+
+- (void)_updateSubviewsScale:(CGFloat)scale
+{
+    if (![self.view isKindOfClass:[UINavigationBar class]])
+    {
+        return;
+    }
+    
+    UINavigationBar *navigationBar = (UINavigationBar *)self.view;
+    
+    for (UIView* view in navigationBar.topItem.titleView.subviews)
+    {
+        view.transform = scale < 1 ? CGAffineTransformMakeScale(scale, scale) : CGAffineTransformIdentity;
+    }
+}
+
 - (void)_updateCenter:(CGPoint)newCenter
 {
     CGPoint currentCenter = self.view.center;
@@ -143,6 +178,16 @@
     if (fadeBehavior == TLYShyNavBarFadeDisabled)
     {
         [self _onAlphaUpdate:1.f];
+    }
+}
+
+- (void)setScale:(BOOL)scale
+{
+    _scale = scale;
+    
+    if (!scale)
+    {
+        [self _onScaleUpdate:1.f];
     }
 }
 
@@ -173,7 +218,8 @@
         CGFloat newAlpha = 1.f - (self.expandedCenterValue.y - self.view.center.y) / self.contractionAmountValue;
         newAlpha = MIN(MAX(FLT_EPSILON, newAlpha), 1.f);
         
-        [self _onAlphaUpdate:newAlpha];
+//        [self _onAlphaUpdate:newAlpha];
+        [self _onProgressUpdate:newAlpha];
         
         residual = newYOffset - newYCenter;
         
@@ -236,7 +282,8 @@
 {
     self.view.hidden = NO;
     
-    [self _onAlphaUpdate:1.f];
+//    [self _onAlphaUpdate:1.f];
+    [self _onProgressUpdate:1.f];
     
     CGFloat amountToMove = self.expandedCenterValue.y - self.view.center.y;
 
@@ -250,7 +297,8 @@
 {
     CGFloat amountToMove = self.contractedCenterValue.y - self.view.center.y;
 
-    [self _onAlphaUpdate:FLT_EPSILON];
+//    [self _onAlphaUpdate:FLT_EPSILON];
+    [self _onProgressUpdate:FLT_EPSILON];
 
     [self _updateCenter:self.contractedCenterValue];
     [self.subShyController contract];

@@ -47,7 +47,12 @@
     if(@available(iOS 11.0, *)) [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     
     [[self view] addSubview:self.tableView];
-    if (self.navigationController != nil) [[self shyNavBarManager] setScrollView:self.tableView];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.navigationController) [[self shyNavBarManager] setScrollView:self.tableView];
 }
 
 #pragma UITableView
@@ -105,6 +110,6 @@
 #pragma Dismiss UIViewController
 - (void)dismissViewController
 {
-    [[self navigationController] dismissViewControllerAnimated:true completion:nil];
+    [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 }
 @end
