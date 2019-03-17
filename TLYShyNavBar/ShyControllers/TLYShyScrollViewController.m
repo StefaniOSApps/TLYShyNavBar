@@ -37,7 +37,7 @@
     {
         if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways)
         {
-            insets.top -= self.scrollView.safeAreaInsets.top + self.scrollView.safeAreaInsets.bottom;
+            insets.top -= self.scrollView.safeAreaInsets.top;
         }
     }
 
