@@ -12,7 +12,6 @@
 
 @property UICollectionView *collectionView;
 @property UIPageViewController *pageController;
-@property TLYShyNavBarManager *manger;
 
 @end
 
@@ -52,19 +51,9 @@
 
     [[self view] addSubview:self.collectionView];
     
-    UIViewController *vc = self.pageController ? self.pageController : self;
-    if(vc.navigationController) self.manger = [vc shyNavBarManager];
-    if(self.manger) [self.manger setScrollView:self.collectionView];
+    [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
+    [[self shyNavBarManager] setScrollView:self.collectionView];
 }
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    UIViewController *vc = self.pageController ? self.pageController : self;
-    if(!self.manger && vc.navigationController) self.manger = [vc shyNavBarManager];
-    if(self.manger) [self.manger setScrollView:self.collectionView];
-}
-
 
 #pragma UICollectionView
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

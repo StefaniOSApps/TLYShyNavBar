@@ -22,13 +22,6 @@
 
 - (CGFloat)calculateTotalHeightRecursively
 {
- /*
-    float overlap = [self.parent maxYRelativeToView:self.view];
-    if ([self.parent isMemberOfClass:[TLYShyStatusBarController class]] && overlap - self.view.frame.origin.y > 0) {
-        overlap += overlap - self.view.frame.origin.y;
-    }
-    return CGRectGetHeight(self.view.bounds) - overlap + [self.parent calculateTotalHeightRecursively];
-  */
     return (self.expanded ? CGRectGetHeight(self.view.bounds) : 0) + [self.parent calculateTotalHeightRecursively];
 }
 
@@ -39,12 +32,8 @@
 
 @property (nonatomic, assign) CGPoint expandedCenterValue;
 @property (nonatomic, assign) CGFloat contractionAmountValue;
-
 @property (nonatomic, assign) CGPoint contractedCenterValue;
 
-//@property (nonatomic, assign) BOOL contracted;
-//@property (nonatomic, assign) BOOL expanded;
-//
 @end
 
 @implementation TLYShyViewController
@@ -218,7 +207,6 @@
         CGFloat newAlpha = 1.f - (self.expandedCenterValue.y - self.view.center.y) / self.contractionAmountValue;
         newAlpha = MIN(MAX(FLT_EPSILON, newAlpha), 1.f);
         
-//        [self _onAlphaUpdate:newAlpha];
         [self _onProgressUpdate:newAlpha];
         
         residual = newYOffset - newYCenter;
@@ -234,7 +222,6 @@
     {
         residual = [self.subShyController updateYOffset:residual];
     }
-    
     return residual;
 }
 
@@ -282,7 +269,6 @@
 {
     self.view.hidden = NO;
     
-//    [self _onAlphaUpdate:1.f];
     [self _onProgressUpdate:1.f];
     
     CGFloat amountToMove = self.expandedCenterValue.y - self.view.center.y;

@@ -179,9 +179,6 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         _scrollView.delegate = (id)self.delegateProxy;
     }
 
-//    [self cleanup];
-//    [self layoutViews];
-    
     if (self.isPageViewController)
     {
         UIEdgeInsets insets = UIEdgeInsetsMake(self.extensionController.calculateTotalHeightRecursively,
@@ -339,7 +336,6 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
     {
         return;
     }
-
     if (!isnan(self.previousYOffset))
     {
         // 1 - Calculate the delta
@@ -416,13 +412,7 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         } else {
             visibleTop = MAX(maxNavY, maxExtensionY);
         }
-        /*
-        if (visibleTop == self.statusBarController.calculateTotalHeightRecursively) {
-            if ([self.delegate respondsToSelector:@selector(shyNavBarManagerDidBecomeFullyContracted:)]) {
-                [self.delegate shyNavBarManagerDidBecomeFullyContracted:self];
-            }
-        }
-        */
+        
         self.startedContracting = deltaY < 0;
         self.startedExpanding = deltaY > 0;
         self.fullyContracted = visibleTop == self.statusBarController.calculateTotalHeightRecursively;
@@ -471,7 +461,6 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 {
     if (context == kTLYShyNavBarManagerKVOContext)
     {
-//        if (self.isViewControllerVisible && ![self _scrollViewIsSuffecientlyLong])
         if (!self.isPageViewController && self.isViewControllerVisible && ![self _scrollViewIsSuffecientlyLong])
         {
             [self.navBarController expand];
@@ -509,15 +498,6 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         self.disable = wasDisabled;
     }
 }
-/*
-- (void)prepareForDisplay
-{
-    [self cleanup];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self cleanup];
-    });
-}
-*/
 - (void)finishedPrepareForDisplay
 {
     /*
@@ -607,7 +587,6 @@ static char shyNavBarManagerKey;
 
 - (void)tly_swizzledViewWillAppear:(BOOL)animated
 {
-//    [[self _internalShyNavBarManager] prepareForDisplay];
     [[self _internalShyNavBarManager] cleanup];
     [self tly_swizzledViewWillAppear:animated];
 }
@@ -619,7 +598,6 @@ static char shyNavBarManagerKey;
 
 - (void)tly_swizzledViewDidLayoutSubviews
 {
-//    [[self _internalShyNavBarManager] layoutViews];
     if (![self _internalShyNavBarManager].isPageViewController)
     {
         [[self _internalShyNavBarManager] layoutViews];

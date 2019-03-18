@@ -13,7 +13,6 @@
 @property UITableView *tableView;
 @property NSArray *arrRows;
 @property UIPageViewController *pageController;
-@property TLYShyNavBarManager *manger;
 
 @end
 
@@ -52,17 +51,8 @@
     
     [[self view] addSubview:self.tableView];
     
-    UIViewController *vc = self.pageController ? self.pageController : self;
-    if(vc.navigationController) self.manger = [vc shyNavBarManager];
-    if(self.manger) [self.manger setScrollView:self.tableView];
-}
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    UIViewController *vc = self.pageController ? self.pageController : self;
-    if(!self.manger && vc.navigationController) self.manger = [vc shyNavBarManager];
-    if(self.manger) [self.manger setScrollView:self.tableView];
+    [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
+    [[self shyNavBarManager] setScrollView:self.tableView];
 }
 
 #pragma UITableView
