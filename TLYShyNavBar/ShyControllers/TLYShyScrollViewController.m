@@ -35,7 +35,9 @@
 
     if (@available(iOS 11.0, *))
     {
-        if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways)
+        if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways ||
+            self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic ||
+            !self.scrollView.contentInsetAdjustmentBehavior)
         {
             insets.top -= self.scrollView.safeAreaInsets.top;
         }

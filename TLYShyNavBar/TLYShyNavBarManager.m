@@ -346,7 +346,9 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         
         if (@available(iOS 11.0, *))
         {
-            if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways)
+            if (self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAlways ||
+                self.scrollView.contentInsetAdjustmentBehavior == UIScrollViewContentInsetAdjustmentAutomatic ||
+                !self.scrollView.contentInsetAdjustmentBehavior)
             {
                 start -= self.scrollView.safeAreaInsets.top;
             }
@@ -510,7 +512,7 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 - (void)cleanup
 {
     [self.navBarController expand];
-    self.previousYOffset = NAN;
+//    self.previousYOffset = NAN;
 }
 
 #pragma mark - UIScrollViewDelegate methods
@@ -543,9 +545,7 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    if (self.scrollView.window) {
-        [self.navBarController expand];
-    }
+    if (self.scrollView.window) [self.navBarController expand];
 }
 
 - (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification

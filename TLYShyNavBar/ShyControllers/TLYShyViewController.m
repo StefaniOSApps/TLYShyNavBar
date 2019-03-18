@@ -47,7 +47,7 @@
                                  CGRectGetMidY(self.view.bounds));
     
     center.y += [self.parent maxYRelativeToView:self.view.superview];
-    
+        
     return center;
 }
 

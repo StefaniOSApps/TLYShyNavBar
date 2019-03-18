@@ -46,11 +46,8 @@
     [self.tableView setDelegate:self];
     [self.tableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [self.tableView setSeparatorColor:[UIColor whiteColor]];
-    
-    if(@available(iOS 11.0, *)) [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-    
     [[self view] addSubview:self.tableView];
-    
+
     [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
     [[self shyNavBarManager] setScrollView:self.tableView];
 }
