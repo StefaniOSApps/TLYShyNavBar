@@ -12,6 +12,7 @@
 
 @property UICollectionView *collectionView;
 @property UIPageViewController *pageController;
+@property TLYShyNavBarManager *manger;
 
 @end
 
@@ -50,19 +51,18 @@
     if (@available(iOS 11.0, *)) [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
 
     [[self view] addSubview:self.collectionView];
-    if (self.navigationController)
-    {
-        self.pageController ? [[self.pageController shyNavBarManager] setScrollView:self.collectionView] : [[self shyNavBarManager] setScrollView:self.collectionView];
-    }
+    
+    UIViewController *vc = self.pageController ? self.pageController : self;
+    if(vc.navigationController) self.manger = [vc shyNavBarManager];
+    if(self.manger) [self.manger setScrollView:self.collectionView];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if (self.navigationController)
-    {
-        self.pageController ? [[self.pageController shyNavBarManager] setScrollView:self.collectionView] : [[self shyNavBarManager] setScrollView:self.collectionView];
-    }
+    UIViewController *vc = self.pageController ? self.pageController : self;
+    if(!self.manger && vc.navigationController) self.manger = [vc shyNavBarManager];
+    if(self.manger) [self.manger setScrollView:self.collectionView];
 }
 
 

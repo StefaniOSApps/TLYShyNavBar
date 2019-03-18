@@ -13,6 +13,7 @@
 @property UITableView *tableView;
 @property NSArray *arrRows;
 @property UIPageViewController *pageController;
+@property TLYShyNavBarManager *manger;
 
 @end
 
@@ -50,15 +51,18 @@
     if(@available(iOS 11.0, *)) [self.tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     
     [[self view] addSubview:self.tableView];
+    
+    UIViewController *vc = self.pageController ? self.pageController : self;
+    if(vc.navigationController) self.manger = [vc shyNavBarManager];
+    if(self.manger) [self.manger setScrollView:self.tableView];
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if (self.navigationController)
-    {
-        self.pageController ? [[self.pageController shyNavBarManager] setScrollView:self.tableView] : [[self shyNavBarManager] setScrollView:self.tableView];
-    }
+    UIViewController *vc = self.pageController ? self.pageController : self;
+    if(!self.manger && vc.navigationController) self.manger = [vc shyNavBarManager];
+    if(self.manger) [self.manger setScrollView:self.tableView];
 }
 
 #pragma UITableView
