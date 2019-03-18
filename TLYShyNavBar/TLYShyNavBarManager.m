@@ -498,14 +498,6 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
         self.disable = wasDisabled;
     }
 }
-- (void)finishedPrepareForDisplay
-{
-    /*
-     Fixed a bug by turn back from a pushed UIViewController
-     */
-    [self cleanup];
-}
-
 - (void)layoutViews
 {
     if (fabs([self.scrollViewController updateLayoutIfNeeded]) > FLT_EPSILON)
@@ -592,7 +584,10 @@ static char shyNavBarManagerKey;
 }
 - (void)tly_swizzledViewDidAppear:(BOOL)animated
 {
-    [[self _internalShyNavBarManager] finishedPrepareForDisplay];
+    /*
+     Fixed a bug by turn back from a pushed UIViewController
+     */
+    [[self _internalShyNavBarManager] cleanup];
     [self tly_swizzledViewDidAppear:animated];
 }
 

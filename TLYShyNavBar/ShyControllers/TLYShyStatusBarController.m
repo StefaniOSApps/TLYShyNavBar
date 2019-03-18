@@ -27,7 +27,6 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 - (CGFloat)_statusBarHeight
 {
     CGFloat statusBarHeight = AACStatusBarHeight(self.viewController);
-//    NSLog(@"%.2f", statusBarHeight);
     return statusBarHeight;
 }
 
