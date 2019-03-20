@@ -50,9 +50,19 @@
 
     [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
     [[self shyNavBarManager] setScrollView:self.tableView];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
-    [view setBackgroundColor:[UIColor orangeColor]];
+    [[self shyNavBarManager] setExtensionView:nil];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 20)];
+    [view setBackgroundColor:[UIColor redColor]];
     [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [[self shyNavBarManager] setExtensionView:view];
 }

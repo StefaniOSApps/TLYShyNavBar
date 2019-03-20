@@ -53,12 +53,22 @@
     
     [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
     [[self shyNavBarManager] setScrollView:self.collectionView];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.frame.size.width, 10)];
+    [[self shyNavBarManager] setExtensionView:nil];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.frame.size.width, 20)];
     [view setBackgroundColor:[UIColor orangeColor]];
     [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     [[self shyNavBarManager] setExtensionView:view];
-//    [[self shyNavBarManager] setStickyExtensionView:YES];
+    [[self shyNavBarManager] setStickyExtensionView:YES];
 }
 
 #pragma UICollectionView
