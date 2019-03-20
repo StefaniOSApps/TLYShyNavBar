@@ -105,11 +105,6 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
                                                  selector:@selector(applicationDidBecomeActive:)
                                                      name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillChangeStatusBarFrame:)
-                                                     name:UIApplicationWillChangeStatusBarFrameNotification
-                                                   object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidChangeStatusBarFrame:)
@@ -552,24 +547,12 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 {
     if (self.scrollView.window) [self.navBarController expand];
 }
-- (void)applicationWillChangeStatusBarFrame:(NSNotification *)notification
-{
-    if (self.isViewControllerVisible) {
-        [self.navBarController expand];
-        self.previousYOffset = NAN;
-        [self cleanup];
-    }
-}
 - (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification
 {
-    if (self.isViewControllerVisible )
-    {
-        BOOL isSticky = self.extensionController.sticky;
-        
-        [self.extensionController setSticky:NO];
-        [self.extensionController updateYOffset:-self.navBarController.calculateTotalHeightRecursively];
-        [self.extensionController setSticky:isSticky];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.previousYOffset = NAN;
+        [self.navBarController expand];
+    });
 }
 
 @end

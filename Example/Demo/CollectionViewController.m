@@ -12,6 +12,7 @@
 
 @property UICollectionView *collectionView;
 @property UIPageViewController *pageController;
+@property UIRefreshControl *refresh;
 
 @end
 
@@ -49,6 +50,14 @@
     
     if (@available(iOS 11.0, *)) [self.collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
 
+    self.refresh = [[UIRefreshControl alloc] init];
+    [self.refresh addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventValueChanged];
+    
+    if (@available(iOS 10.0, *)) {
+        [self.collectionView setRefreshControl:self.refresh];
+    }else{
+        [self.collectionView addSubview:self.refresh];
+    }
     [[self view] addSubview:self.collectionView];
     
     [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
@@ -114,10 +123,21 @@
     [flowLayout setSectionInset:UIEdgeInsetsMake(kPadding, kPadding, kPadding, kPadding)];
     return flowLayout;
 }
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [coordinator animateAlongsideTransition:nil
+                                 completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
+     {
+         [self.collectionView performBatchUpdates:^{
+             [self.collectionView setCollectionViewLayout:self.collectionView.collectionViewLayout animated:YES];
+         } completion:nil];
+     }];
+}
 
 #pragma Dismiss UIViewController
 - (void)dismissViewController
 {
+    [self.refresh endRefreshing];
     [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 }
 
