@@ -50,6 +50,11 @@
 
     [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
     [[self shyNavBarManager] setScrollView:self.tableView];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 10)];
+    [view setBackgroundColor:[UIColor orangeColor]];
+    [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [[self shyNavBarManager] setExtensionView:view];
 }
 
 #pragma UITableView

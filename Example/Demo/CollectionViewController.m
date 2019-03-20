@@ -53,6 +53,12 @@
     
     [self setShyNavBarManager:[[TLYShyNavBarManager alloc] init] viewController:(self.pageController ? self.pageController  : self)];
     [[self shyNavBarManager] setScrollView:self.collectionView];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.collectionView.frame.size.width, 10)];
+    [view setBackgroundColor:[UIColor orangeColor]];
+    [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    [[self shyNavBarManager] setExtensionView:view];
+//    [[self shyNavBarManager] setStickyExtensionView:YES];
 }
 
 #pragma UICollectionView
@@ -61,7 +67,7 @@
     static NSString *cellIdentifier = @"cell";
     UICollectionViewCell *cell  = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     for (UIView * v in [cell contentView].subviews) [v removeFromSuperview];
-    
+
     [cell setBackgroundColor:[UIColor darkGrayColor]];
     
     UILabel *label_L = [UILabel new];

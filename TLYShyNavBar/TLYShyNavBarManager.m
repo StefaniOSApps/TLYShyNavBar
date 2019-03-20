@@ -107,8 +107,13 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
                                                    object:nil];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationWillChangeStatusBarFrame:)
+                                                     name:UIApplicationWillChangeStatusBarFrameNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidChangeStatusBarFrame:)
-                                                     name:UIApplicationDidChangeStatusBarFrameNotification
+                                                     name:UIApplicationWillChangeStatusBarFrameNotification
                                                    object:nil];
     }
     return self;
@@ -434,11 +439,11 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
     }
 
     __weak __typeof(self) weakSelf = self;
-    void (^completion)(void) = ^
+    void (^completion)(BOOL contracting) = ^(BOOL contracting)
     {
         __typeof(self) strongSelf = weakSelf;
         if (strongSelf) {
-            if (strongSelf.contracting) {
+            if (contracting) {
                 if ([strongSelf.delegate respondsToSelector:@selector(shyNavBarManagerDidFinishContracting:)]) {
                     [strongSelf.delegate shyNavBarManagerDidFinishContracting:strongSelf];
                 }
@@ -547,10 +552,15 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 {
     if (self.scrollView.window) [self.navBarController expand];
 }
-
-- (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification
+- (void)applicationWillChangeStatusBarFrame:(NSNotification *)notification
 {
     [self.navBarController expand];
+    self.previousYOffset = NAN;
+    [self cleanup];
+}
+- (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification
+{
+    [self.extensionController updateYOffset:-self.navBarController.calculateTotalHeightRecursively];
 }
 
 @end
