@@ -554,13 +554,19 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 }
 - (void)applicationWillChangeStatusBarFrame:(NSNotification *)notification
 {
-    [self.navBarController expand];
-    self.previousYOffset = NAN;
-    [self cleanup];
+    if (self.isViewControllerVisible) {
+        [self.navBarController expand];
+        self.previousYOffset = NAN;
+        [self cleanup];
+    }
+    
 }
 - (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification
 {
-    [self.extensionController updateYOffset:-self.navBarController.calculateTotalHeightRecursively];
+    if (self.isViewControllerVisible) {
+        [self.extensionController updateYOffset:-self.navBarController.calculateTotalHeightRecursively];
+    }
+    
 }
 
 @end
