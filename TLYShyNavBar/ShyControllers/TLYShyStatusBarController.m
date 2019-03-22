@@ -21,12 +21,7 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
     CGFloat extendedStatusBar   = view.window.frame.size.height - view.bounds.size.height;
     CGFloat statusBarHeight     = diff > 0 ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height;
     
-    if (@available(iOS 11.0, *)) {
-//        extendedStatusBar -= MAX(0, extendedStatusBar - UIApplication.sharedApplication.delegate.window.safeAreaInsets.top);
-    }
-    
     statusBarHeight += (diff > extendedStatusBar) ? extendedStatusBar : (isiPad ? 0 : extendedStatusBar);
-//    NSLog(@"%.2f, %.2f, %.2f, %.2f", diff, extendedStatusBar, view.window.frame.size.height, view.bounds.size.height);
     
     return statusBarHeight;
 }
@@ -37,8 +32,6 @@ static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 - (CGFloat)_statusBarHeight
 {
     CGFloat statusBarHeight = AACStatusBarHeight(self.viewController);
-    NSLog(@"%.2f", statusBarHeight);
-    
     return statusBarHeight;
 }
 
