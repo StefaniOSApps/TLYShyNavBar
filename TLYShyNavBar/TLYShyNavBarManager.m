@@ -580,7 +580,7 @@ static char shyNavBarManagerKey;
 
 - (void)tly_swizzledViewWillAppear:(BOOL)animated
 {
-    [[self _internalShyNavBarManager] cleanup];
+//    [[self _internalShyNavBarManager] cleanup];
     [self tly_swizzledViewWillAppear:animated];
 }
 - (void)tly_swizzledViewDidAppear:(BOOL)animated
@@ -608,7 +608,7 @@ static char shyNavBarManagerKey;
 }
 - (void)tly_swizzledViewDidDisappear:(BOOL)animated
 {
-    [[self _internalShyNavBarManager] cleanup];
+//    [[self _internalShyNavBarManager] cleanup];
     [self tly_swizzledViewDidDisappear:animated];
 }
 

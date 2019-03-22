@@ -89,6 +89,7 @@
 
     [cell setBackgroundColor:[UIColor darkGrayColor]];
     
+    
     UILabel *label_L = [UILabel new];
     [label_L setTextAlignment:NSTextAlignmentCenter];
     [label_L setTextColor:[UIColor whiteColor]];
@@ -121,7 +122,12 @@
     [flowLayout setMinimumLineSpacing:kPadding];
     [flowLayout setMinimumInteritemSpacing:kPadding];
     [flowLayout setSectionInset:UIEdgeInsetsMake(kPadding, kPadding, kPadding, kPadding)];
+//    [flowLayout setEstimatedItemSize:(!UIDeviceOrientationIsLandscape(UIDevice.currentDevice.orientation) ? CGSizeMake(40, 40) : CGSizeMake(50, 50))];
     return flowLayout;
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UIDeviceOrientationIsLandscape(UIDevice.currentDevice.orientation) ? CGSizeMake(40, 40) : CGSizeMake(50, 50);
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -133,6 +139,12 @@
          } completion:nil];
      }];
 }
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
 
 #pragma Dismiss UIViewController
 - (void)dismissViewController
