@@ -11,18 +11,18 @@
 static inline CGFloat AACStatusBarHeight(UIViewController *viewController)
 {
     UIView *view    = viewController.view;
-    BOOL isiPad     = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+    UIView *viewNc  = viewController.navigationController.view;
     
     if ([UIApplication sharedApplication].statusBarHidden) return 0.f;
     if (viewController.presentingViewController.presentedViewController == viewController) return 0;
     if (view.window.frame.size.height == 0) return [UIApplication sharedApplication].statusBarFrame.size.height;
     
     CGFloat diff                = [view.superview convertPoint:CGPointZero toView:view.window].y;
-    CGFloat extendedStatusBar   = view.window.frame.size.height - view.bounds.size.height;
+    CGFloat extendedHeight      = view.window.frame.size.height - view.bounds.size.height;
     CGFloat statusBarHeight     = diff > 0 ? 0 : [UIApplication sharedApplication].statusBarFrame.size.height;
     
-    statusBarHeight += (diff > extendedStatusBar) ? extendedStatusBar : (isiPad ? 0 : extendedStatusBar);
-    
+    if(diff > extendedHeight || viewNc.bounds.size.height == view.bounds.size.height) statusBarHeight += extendedHeight;
+
     return statusBarHeight;
 }
 
